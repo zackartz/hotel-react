@@ -39,7 +39,6 @@ class App extends Component {
 				people: [],
 				isCleaning: false
 			}
-
 		]
 	}
 
@@ -63,7 +62,7 @@ class App extends Component {
 		this.setState({ rooms: this.state.rooms.map(room => {
 			if (room.id === id) {
 				let itemCount = null;
-				if (value == "*") {
+				if (value === "*") {
 					room.people = [];
 					console.log(`Everyone was removed from room ${id} on ${dateTime}`);
 					return room;
