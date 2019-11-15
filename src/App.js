@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import RoomList from './components/RoomList';
 
+let today = new Date();
+let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+let dateTime = date + " " + time;
+
 class App extends Component {
 	state = {
 		rooms: [
@@ -34,6 +39,7 @@ class App extends Component {
 				people: [],
 				isCleaning: false
 			}
+
 		]
 	}
 
@@ -46,6 +52,7 @@ class App extends Component {
 					return room;
 				}
 
+				console.log(`${value} checked in to room ${id} on ${dateTime}`)
 				room.people.push(value);
 			}
 			return room;
@@ -55,9 +62,12 @@ class App extends Component {
 	removePerson = (id, value) => {
 		this.setState({ rooms: this.state.rooms.map(room => {
 			if (room.id === id) {
-
 				let itemCount = null;
-				if (isNaN(value)) {
+				if (value == "*") {
+					room.people = [];
+					console.log(`Everyone was removed from room ${id} on ${dateTime}`);
+					return room;
+				} else if (isNaN(value)) {
 					for (var i = room.people.length - 1; i >= 0; i--) {
 						if (value === room.people[i]) {
 							itemCount = i;
@@ -71,6 +81,7 @@ class App extends Component {
 					itemCount = value - 1;				
 				}
 				room.people.splice(itemCount, 1)
+				console.log(`${value} was removed from room ${id} on ${dateTime}`)
 			}
 			return room;
 		}) })
