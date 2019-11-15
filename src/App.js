@@ -1,12 +1,21 @@
+// Here we define the components and packages that we will be using.
+
 import React, { Component } from 'react';
 import RoomList from './components/RoomList';
+
+// Get the time for use in logging.
 
 let today = new Date();
 let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 let dateTime = date + " " + time;
 
+// Define the main App class.
+
 class App extends Component {
+
+	// This state is stored here, it stores all the information for each room, such as ID, if the room is being cleaned and the people in the room.
+
 	state = {
 		rooms: [
 			{
@@ -42,6 +51,10 @@ class App extends Component {
 		]
 	}
 
+	// The addPerson function is in charge of adding guest to the room
+	// we use the map function so we can write this code once and have it
+	// be used per room.
+
 	addPerson = (id, value) => {
 		this.setState({ rooms: this.state.rooms.map(room => {
 			if (room.id === id) {
@@ -57,6 +70,10 @@ class App extends Component {
 			return room;
 		}) })
 	}
+
+	// RemovePerson is similar to addperson, but in here we have extra if statements
+	// These statements are used to validate the textinput coming from the site, for example
+	// if the user inputs *, we set the room to empty, and by returning room skips the rest of the code.
 
 	removePerson = (id, value) => {
 		this.setState({ rooms: this.state.rooms.map(room => {
@@ -86,6 +103,8 @@ class App extends Component {
 		}) })
 	}
 
+	// This just inverts the current value.
+
 	lock = (id) => {
 		this.setState({ rooms: this.state.rooms.map(room => {
 			if (room.id === id) {
@@ -94,6 +113,8 @@ class App extends Component {
 			return room;
 		}) })
 	}
+
+	// Here we add the main component and start the rendering process.
 
 	render() {
     	return (
