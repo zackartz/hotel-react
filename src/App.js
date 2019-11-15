@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import RoomList from './components/RoomList';
 
-
-
 class App extends Component {
 
 	state = {
