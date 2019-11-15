@@ -6,38 +6,49 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 
 class Room extends Component {
 
-    render() {
+    getStyle = () => {
+        return {
+            display: 'inline-block',
+            margin: 15,
+            width: 370,
+            height: 240
+        }
+    }
 
-        const useStyles = makeStyles(theme => ({
-            textField: {
-                marginLeft: theme.spacing(1),
-                marginRight: theme.spacing(1),
-                width: 200,
-            },
-            card: {
-                width: 350,
-                display: 'inline-block',
-                margin: 20
-            }
-        }));
+    constructor(props) {
+        super(props);
+        this.state = {
+            textValue: ''
+        };
+    }
+
+    handleChange = (e) => this.setState({ textValue: e.target.value })
+
+    render() {
 
         const { id, people, isCleaning } = this.props.room;
 
         let rText = "loading..."
+        let lText = "loading..."
 
         if (people.length < 1) {
             rText = "This room is empty, you may add people with the Check-In button below!"
         } else {
-            rText = people.join(" ");
+            rText = "People: " + people.join(" ");
+        }
+
+        if (isCleaning) {
+            lText = "Unlock"
+        } else {
+            lText = "Lock for Cleaning"
         }
 
         return (
-            <Card className={makeStyles.card} style={{ display: 'inline-block', margin: 15, width: 370 }}>
+            <Card style={this.getStyle()}>
                 <CardActionArea>
                     <CardMedia
                         image="/static/images/cards/contemplative-reptile.jpg"
@@ -51,26 +62,30 @@ class Room extends Component {
                             { rText }
                         </Typography>
                         <TextField
+                            ref="txt"
                             id="outlined-basic"
-                            className={makeStyles.textField}
                             label="Person's Name"
                             margin="normal"
+                            value={this.state.textValue}
+                            onChange={this.handleChange}
                             variant="outlined"
                             />
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <Button size="small" color="primary">
-                        Add Person
+                    <Button size="small" disabled={this.props.room.isCleaning} color="primary" onClick={this.props.addPerson.bind(this, id, this.state.textValue)}>
+                        ADD
                     </Button>
-                    <Button size="small" color="secondary">
-                        Lock for cleaning
+                    <Button size="small" disabled={this.props.room.isCleaning} color="primary" onClick={this.props.removePerson.bind(this, id, this.state.textValue)}>
+                        REMOVE
+                    </Button>
+                    <Button size="small" color="secondary" onClick={this.props.lock.bind(this, id)}>
+                        { lText }
                     </Button>
                 </CardActions>
             </Card>
-        )
+        );
     }
-
 }
 
 export default Room;

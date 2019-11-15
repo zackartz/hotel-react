@@ -3,7 +3,7 @@
 ## I used the Create React App Script to build the boilerplate project.
 ## I also used https://socket.io to do the communication between server and client.
 
-## Using
+## Installing
 
 To get deploy the app, you need to have [node.js](https://nodejs.org/) downloaded and installed. 
 
@@ -24,6 +24,8 @@ or for npm
 ```
 npm install
 ```
+
+## Running
 
 To start the development server, type this into a terminal in the project's root directory.
 ```
