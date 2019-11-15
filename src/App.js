@@ -5,10 +5,7 @@ import RoomList from './components/RoomList';
 
 // Get the time for use in logging.
 
-let today = new Date();
-let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-let dateTime = date + " " + time;
+
 
 // Define the main App class.
 
@@ -56,6 +53,12 @@ class App extends Component {
 	// be used per room.
 
 	addPerson = (id, value) => {
+
+		let today = new Date();
+		let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+		let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+		let dateTime = date + " " + time;
+		
 		this.setState({ rooms: this.state.rooms.map(room => {
 			if (room.id === id) {
 
@@ -76,6 +79,12 @@ class App extends Component {
 	// if the user inputs *, we set the room to empty, and by returning room skips the rest of the code.
 
 	removePerson = (id, value) => {
+		
+		let today = new Date();
+		let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+		let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+		let dateTime = date + " " + time;
+
 		this.setState({ rooms: this.state.rooms.map(room => {
 			if (room.id === id) {
 				let itemCount = null;
@@ -106,8 +115,15 @@ class App extends Component {
 	// This just inverts the current value.
 
 	lock = (id) => {
+
+		let today = new Date();
+		let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+		let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+		let dateTime = date + " " + time;
+
 		this.setState({ rooms: this.state.rooms.map(room => {
 			if (room.id === id) {
+				console.log(`${!room.isCleaning ? "Locked" : "Unlocked"} room ${id} at ${dateTime}`);
 				room.isCleaning = !room.isCleaning
 			}
 			return room;

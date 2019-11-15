@@ -12,10 +12,15 @@ class Room extends Component {
 
     getStyle = () => {
         return {
-            display: 'inline-block',
-            margin: 15,
-            width: 370,
-            height: 240
+            card: {
+                display: 'inline-block',
+                margin: 15,
+                width: 370,
+                height: 240
+            },
+            text: {
+                height: 40
+            }
         }
     }
 
@@ -38,7 +43,7 @@ class Room extends Component {
         if (people.length < 1) {
             rText = "This room is empty, you may add people with the Check-In button below!"
         } else {
-            rText = "People: " + people.join(" ");
+            rText = "People: " + people.join(", ");
         }
 
         if (isCleaning) {
@@ -48,7 +53,7 @@ class Room extends Component {
         }
 
         return (
-            <Card style={this.getStyle()}>
+            <Card style={this.getStyle().card}>
                 <CardActionArea>
                     <CardMedia
                         image="/static/images/cards/contemplative-reptile.jpg"
@@ -58,7 +63,7 @@ class Room extends Component {
                         <Typography gutterBottom variant="h5" component="h2">
                             {"Room " + id}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
+                        <Typography variant="body2" color="textSecondary" style={this.getStyle().text} component="p">
                             { rText }
                         </Typography>
                         <TextField
