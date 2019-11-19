@@ -5,8 +5,6 @@ import RoomList from './components/RoomList';
 
 // Get the time for use in logging.
 
-
-
 // Define the main App class.
 
 class App extends Component {
@@ -67,6 +65,15 @@ class App extends Component {
 					return room;
 				}
 
+				let peopleArray = value.split(", ");
+				if (peopleArray) {
+					for (var i = 0; i < peopleArray.length; i++) {
+						room.people.push(peopleArray[i]);
+						console.log(`${peopleArray[i]} checked into room ${id} on ${dateTime}`);
+					}
+					return room;
+				}
+
 				console.log(`${value} checked in to room ${id} on ${dateTime}`)
 				room.people.push(value);
 			}
@@ -87,6 +94,7 @@ class App extends Component {
 
 		this.setState({ rooms: this.state.rooms.map(room => {
 			if (room.id === id) {
+				let person;
 				let itemCount = null;
 				if (value === "*") {
 					room.people = [];
@@ -96,6 +104,7 @@ class App extends Component {
 					for (var i = room.people.length - 1; i >= 0; i--) {
 						if (value === room.people[i]) {
 							itemCount = i;
+							person = room.people[i]
 						}
 					}
 					if (itemCount === null) {
@@ -103,10 +112,11 @@ class App extends Component {
 						return room;
 					}
 				} else {
-					itemCount = value - 1;				
+					itemCount = value - 1;
+					person = room.people[itemCount]
 				}
 				room.people.splice(itemCount, 1)
-				console.log(`${value} was removed from room ${id} on ${dateTime}`)
+				console.log(`${person} was removed from room ${id} on ${dateTime}`)
 			}
 			return room;
 		}) })
