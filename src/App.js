@@ -3,8 +3,6 @@
 import React, { Component } from 'react';
 import RoomList from './components/RoomList';
 
-// Get the time for use in logging.
-
 // Define the main App class.
 
 class App extends Component {
@@ -62,6 +60,11 @@ class App extends Component {
 
 				if (room.people.length > 3) {
 					alert("You can only have 4 people per room");
+					return room;
+				}
+
+				if (value === "*") {
+					alert("That is not a valid name");
 					return room;
 				}
 

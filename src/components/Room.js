@@ -8,7 +8,11 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 
+// Import Components. These are from https://material-ui.com and look very nice.
+
 class Room extends Component {
+
+    // Custom Styling for our material components.
 
     getStyle = () => {
         return {
@@ -24,6 +28,8 @@ class Room extends Component {
         }
     }
 
+    // Store the state for the text for our room.
+
     constructor(props) {
         super(props);
         this.state = {
@@ -31,26 +37,40 @@ class Room extends Component {
         };
     }
 
+    // Change the value when someone types.
+
     handleChange = (e) => this.setState({ textValue: e.target.value })
+
+    // Render the HTML
 
     render() {
 
+        // Define variables to save time.
+
         const { id, people, isCleaning } = this.props.room;
+
+        // When loading, show loading text.
 
         let rText = "loading..."
         let lText = "loading..."
 
+        // When a room is empty show proper text.
+
         if (people.length < 1) {
             rText = "This room is empty, you may add people with the Check-In button below!"
         } else {
-            rText = "People: " + people.join(", ");
+            rText = `People (${people.length}): ` + people.join(", ");
         }
+
+        // Change button text
 
         if (isCleaning) {
             lText = "Unlock"
         } else {
             lText = "Lock for Cleaning"
         }
+
+        // Actually render the HTML.
 
         return (
             <Card style={this.getStyle().card}>
