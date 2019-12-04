@@ -1,0 +1,43 @@
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+
+  build:
+    name: Build, push, and deploy
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Build container image
+        run: docker build -f Dockerfile -t zackartz/artemis:$(echo $GITHUB_SHA | head -c7) .
+
+      - name: Docker Login
+        run: docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push image to Docker Hub
+        run: docker push zackartz/artemis
+      
+      - name: Save Deployment
+        run: mkdir $GITHUB_WORKSPACE/config/ && echo ${{ secrets.STABLE_DEPLOY_DATA }} | base64 -d > $GITHUB_WORKSPACE/config/deployment.yml
+
+      - name: Update deployment file
+        run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|zackartz/artemis:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
+
+      - name: Save kubeconfig
+        run: echo ${{ secrets.KUBE_CONFIG_DATA }} | base64 -d > $GITHUB_WORKSPACE/.kubeconfig
+
+      - name: Deploy to Kubernetes
+        uses: docker://lachlanevenson/k8s-kubectl
+        with:
+          args: --kubeconfig=/github/workspace/.kubeconfig apply -f /github/workspace/config/deployment.yml
+
+      - name: Verify deployment
+        uses: docker://lachlanevenson/k8s-kubectl
+        with:
+          args: --kubeconfig=/github/workspace/.kubeconfig rollout status deployment/artemis-server
