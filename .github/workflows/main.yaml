@@ -30,7 +30,7 @@ jobs:
         run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|zackartz/hotel-react:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
 
       - name: Save kubeconfig
-        run: echo ${{ secrets.KUBE_CONFIG_DATA }} | base64 -d > $GITHUB_WORKSPACE/.kubeconfig
+        run: echo ${{ secrets.KUBECONFIG }} | base64 -d > $GITHUB_WORKSPACE/.kubeconfig
 
       - name: Deploy to Kubernetes
         uses: docker://lachlanevenson/k8s-kubectl
