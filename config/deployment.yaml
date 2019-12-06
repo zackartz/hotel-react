@@ -5,13 +5,18 @@ metadata:
   labels:
     app: hotel-react
   name: hotel-react
+  selfLink: /api/v1/namespaces/default/services/hotel-react
 spec:
+  externalTrafficPolicy: Cluster
   ports:
-  - port: 80
+  - nodePort: 31945
+    port: 80
     protocol: TCP
     targetPort: 80
   selector:
     app: hotel-react
+  sessionAffinity: None
+  type: LoadBalancer
 status:
   loadBalancer: {}
 ---
