@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: hotel-react
@@ -18,7 +18,7 @@ spec:
       - name: hotel-react
         image: <IMAGE>
         ports:
-        - containerPort: 3000
+        - containerPort: 5000
         resources:
           requests:
             cpu: 100m
@@ -28,7 +28,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: hotel-react-service
+  name: hotel-service
   annotations:
     external-dns.alpha.kubernetes.io/hostname: "doctl-action.do-api.dev"
     service.beta.kubernetes.io/do-loadbalancer-certificate-id: "249acd4f-a9a9-45d3-b862-864c5707f79b"
