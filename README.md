@@ -35,6 +35,17 @@ or for npm
 npm start
 ```
 
+## Using Docker
+### Building
+```
+docker build -t hotel-react:dev
+```
+
+### Running
+```
+docker run hotel-react:dev
+```
+
 Thanks for reading! The project should automatically open up in a new browser window, if not it should be on http://localhost:3000
 
 ### Built by Zachary Myers <zackmyers@lavabit.com>
