@@ -1,44 +1,46 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: hotel-react
+  name: hotel-react
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: hotel-react
+status:
+  loadBalancer: {}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  creationTimestamp: null
+  labels:
+    app: hotel-react
   name: hotel-react
 spec:
   replicas: 1
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-  minReadySeconds: 5
+  selector:
+    matchLabels:
+      app: hotel-react
+  strategy: {}
   template:
     metadata:
+      creationTimestamp: null
       labels:
         app: hotel-react
     spec:
       containers:
-      - name: hotel-react
+      - env:
+        - name: LICENSE
+          value: accept
         image: <IMAGE>
+        name: hotel-react
         ports:
-        - containerPort: 5000
-        resources:
-          requests:
-            cpu: 100m
-          limits:
-            cpu: 100m
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: hotel-service
-  annotations:
-    external-dns.alpha.kubernetes.io/hostname: "doctl-action.do-api.dev"
-    service.beta.kubernetes.io/do-loadbalancer-certificate-id: "249acd4f-a9a9-45d3-b862-864c5707f79b"
-    service.beta.kubernetes.io/do-loadbalancer-redirect-http-to-https: "true"
-spec:
-  type: LoadBalancer
-  ports:
-    - name: https
-      protocol: TCP
-      port: 443
-      targetPort: 5000
-  selector:
-    app: hotel-react
+        - containerPort: 80
+        resources: {}
+status: {}
