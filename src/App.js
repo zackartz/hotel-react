@@ -160,7 +160,7 @@ class App extends Component {
 				      <MenuIcon />
 				    </IconButton>
 				    <Typography variant="h6">
-				      Zack's Hotel
+				      Not Zack's Hotel
 				    </Typography>
 				    <Button color="inherit">Login</Button>
 				  </Toolbar>
