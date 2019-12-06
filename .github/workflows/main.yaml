@@ -24,7 +24,7 @@ jobs:
         run: docker push zackartz/hotel-react
     
       - name: Update deployment file
-        run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|zackartz/hotel-react:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
+        run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|zackartz/hotel-react:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yaml
 
       - name: Save kubeconfig
         run: echo ${{ secrets.KUBECONFIG }} | base64 -d > $GITHUB_WORKSPACE/.kubeconfig
