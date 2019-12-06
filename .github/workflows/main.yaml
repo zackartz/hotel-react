@@ -22,10 +22,7 @@ jobs:
 
       - name: Push image to Docker Hub
         run: docker push zackartz/hotel-react
-      
-      - name: Save Deployment
-        run: mkdir $GITHUB_WORKSPACE/config/ && echo ${{ secrets.STABLE_DEPLOY_DATA }} | base64 -d > $GITHUB_WORKSPACE/config/deployment.yml
-
+    
       - name: Update deployment file
         run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|zackartz/hotel-react:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
 
