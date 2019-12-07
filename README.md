@@ -52,4 +52,14 @@ Thanks for reading! The project should automatically open up in a new browser wi
 - use * to clean out all members
 - check logs in console
 
+## Kubernetes
+To use the gihub workflow files, you need a
+- Kubernetes Instance (I use 2x1c2GB)
+- A docker hub account
+- Patience
+
+The KUBECONFIG (which you can download if you use [linode](https://linode.com)) is encoded in base64 and then stored as a secret, along with your docker hub username & docker hub password. Make sure to edit the workflow configuration to your username and the name of the repo. 
+
+Hopefully it will just work, if not, send me a email and I'll help ya out.
+
 ### Built by Zachary Myers <zackmyers@lavabit.com>
