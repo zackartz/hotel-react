@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import moment from "moment";
 
 // Define the main App class.
 
@@ -56,11 +57,8 @@ class App extends Component {
 
 	addPerson = (id, value) => {
 
-		let today = new Date();
-		let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-		let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-		let dateTime = date + " " + time;
-		
+		let dateTime = moment().format('MMMM Do YYYY, h:mm:ss a')
+
 		this.setState({ rooms: this.state.rooms.map(room => {
 			if (room.id === id) {
 
@@ -96,10 +94,7 @@ class App extends Component {
 
 	removePerson = (id, value) => {
 		
-		let today = new Date();
-		let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-		let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-		let dateTime = date + " " + time;
+		let dateTime = moment().format('MMMM Do YYYY, h:mm:ss a')
 
 		this.setState({ rooms: this.state.rooms.map(room => {
 			if (room.id === id) {
@@ -135,10 +130,7 @@ class App extends Component {
 
 	lock = (id) => {
 
-		let today = new Date();
-		let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-		let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-		let dateTime = date + " " + time;
+		let dateTime = moment().format('MMMM Do YYYY, h:mm:ss a')
 
 		this.setState({ rooms: this.state.rooms.map(room => {
 			if (room.id === id) {

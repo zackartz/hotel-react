@@ -93,6 +93,13 @@ class Room extends Component {
                             margin="normal"
                             value={this.state.textValue}
                             onChange={this.handleChange}
+                            // This handle's the On-Enter-Submit Functionality
+                            onKeyPress={(ev) => {
+                                if (ev.key === 'Enter') {
+                                    console.log(id, this.state.textValue)
+                                    this.props.addPerson(id, this.state.textValue)
+                                }
+                            }}
                             variant="outlined"
                             />
                     </CardContent>
